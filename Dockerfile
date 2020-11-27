@@ -6,7 +6,7 @@ RUN apt-get update && apt-get install -y \
       gnupg \
       fish
 
-RUN apt-get update && apt-get install -y libzip-dev libicu-dev && docker-php-ext-install pdo zip intl opcache
+RUN apt-get update && apt-get install -y subversion libmcrypt-dev libzip-dev libicu-dev && docker-php-ext-install mcrypt mbstring pdo zip unzip intl opcache
 
 # Support de apcu
 RUN pecl install apcu && docker-php-ext-enable apcu
