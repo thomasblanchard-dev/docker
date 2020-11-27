@@ -1,12 +1,21 @@
 FROM php:7.4-fpm
 
 RUN apt-get update && apt-get install -y \
-      wget \
-      git \
-      gnupg \
-      fish
+    subversion \
+    libonig-dev \
+    libzip-dev \
+    libicu-dev \
+    libmcrypt-dev \
+    libssl-dev \
+    wget \
+    git \
+    gnupg \
+    fish
 
-RUN apt-get update && apt-get install -y subversion libmcrypt-dev libzip-dev libicu-dev && docker-php-ext-install mcrypt mbstring pdo zip unzip intl opcache
+# Support de mcrypt
+RUN pecl install mcrypt-1.0.3 && docker-php-ext-enable mcrypt
+
+RUN docker-php-ext-install zip intl opcache
 
 # Support de apcu
 RUN pecl install apcu && docker-php-ext-enable apcu
